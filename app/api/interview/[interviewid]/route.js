@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { NextResponse } from "next/server";
-import { getDb } from "@/utils/db";
+import { db } from "@/utils/db";
 import { MockInterview } from "@/utils/schema";
 import { eq } from "drizzle-orm";
 
@@ -10,9 +10,9 @@ export async function GET(req, { params }) {
 
     try {
         // initialize database safely at runtime
-        const db = getDb();
+        const database = db();
 
-        const result = await db
+        const result = await database
             .select()
             .from(MockInterview)
             .where(eq(MockInterview.mockId, interviewid));
